@@ -1,17 +1,66 @@
 [gd_scene format=3 uid="uid://dh06tuneyl45w"]
 
 [ext_resource type="Script" uid="uid://b253fo66go5" path="res://player.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://bbp32jqofob42" path="res://icon.svg" id="2_tex"]
+[ext_resource type="Script" path="res://main.gd" id="3_main_script"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(64, 64)
 
 [node name="Main" type="Node2D" unique_id=391685571]
+script = ExtResource("3_main_script")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=330552065]
+position = Vector2(576, 324)
 script = ExtResource("1_ig7tw")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=270195343]
-texture_filter = 2
-texture_repeat = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_tex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=941032010]
 shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 20.0
+text = "Score: 0"
+theme_override_font_sizes/font_size = 28
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer"]
+offset_left = 980.0
+offset_top = 20.0
+text = "Time: 30"
+theme_override_font_sizes/font_size = 28
+
+[node name="GameOverScreen" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="ColorRect" parent="CanvasLayer/GameOverScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/GameOverScreen"]
+offset_left = 376.0
+offset_top = 200.0
+offset_right = 776.0
+offset_bottom = 450.0
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer/GameOverScreen/VBox"]
+text = "GAME OVER"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 52
+
+[node name="FinalScoreLabel" type="Label" parent="CanvasLayer/GameOverScreen/VBox"]
+text = "Final Score: 0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 32
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverScreen/VBox"]
+text = "Play Again"
+theme_override_font_sizes/font_size = 24
